@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Alan's Food Stall</title>
+
+  <link rel="stylesheet" href="css/normalize.css">
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+
+  <h1>Alan's Food Stall</h1>
+
+<div class="shopping-cart">
+
+  <div class="column-labels">
+    <label class="product-image">Image</label>
+    <label class="product-details">Product</label>
+    <label class="product-price">Price</label>
+    <label class="product-quantity">Quantity</label>
+    <label class="product-removal">Remove</label>
+    <label class="product-line-price">Total</label>
+  </div>
+
+  <div class="product">
+    <div class="product-image">
+      <img src="img/bkt.jpg">
+    </div>
+    <div class="product-details">
+      <div class="product-title">BKT</div>
+      <p class="product-description">Bak-Kut-Teh is a Chinese soup popularly served in Malaysia and Singapore.  Simply A-M-A-Z-I-N-G.</p>
+    </div>
+    <div class="product-price">2.60</div>
+    <div class="product-quantity">
+      <input type="number" value="2" min="1">
+    </div>
+    <div class="product-removal">
+      <button class="remove-product">
+        Remove
+      </button>
+    </div>
+    <div class="product-line-price">2.60</div>
+  </div>
+
+  <div class="product">
+    <div class="product-image">
+      <img src="img/ice-cream.jpg">
+    </div>
+    <div class="product-details">
+      <div class="product-title">Ice Cream</div>
+      <p class="product-description">The superior wafer ice cream sandwich that trumps all other desserts.  Available in various flavours, but only the Durian gives it the legendary status.</p>
+    </div>
+    <div class="product-price">1.00</div>
+    <div class="product-quantity">
+      <input type="number" value="1" min="1">
+    </div>
+    <div class="product-removal">
+      <button class="remove-product">
+        Remove
+      </button>
+    </div>
+    <div class="product-line-price">1.00</div>
+  </div>
+
+  <div class="totals">
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">3.60</div>
+    </div>
+  </div>
+</div>
+
+  <iframe name="vzero" height="0" width="0" frameborder="0"></iframe>
+  <form id="checkout_form" action="http://alanmbp.local:3000/form_submit" method="post" target="vzero">
+    <div id="checkout"></div>
+    <input class="checkout" type="submit" value="Checkout" >
+  </form>
+
+  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+  <script type="text/javascript">
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', "http://alanmbp.local:3000/client_token", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var token = JSON.parse(xhr.responseText).clientToken;
+        braintree.setup(token, "dropin", {
+            container: "checkout"
+        });
+      }
+    }
+    xhr.send();
+  </script>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>
